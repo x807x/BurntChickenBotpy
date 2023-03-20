@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 #define int long long
 #define ios ios_base::sync_with_stdio(false),cin.tie(0),cout.tie(0);
+<<<<<<< HEAD
 
 import math, copy, discord
 
@@ -25,6 +26,10 @@ class response:
         return
 
 #graph=('💿🈳⭕ ','⚪ ','⚫ ')
+=======
+#define ull unsigned long long
+import math, copy
+>>>>>>> 6c28f52506d664bbebe565797f22dfd1650c1f43
 graph=('⭕  ','⚽  ','🥎  ','  ')
 Situation=("未開始","輪到玩家1","輪到玩家2","等待玩家2加入")
 abalone_rules="""
