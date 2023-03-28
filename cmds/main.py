@@ -46,7 +46,7 @@ class Pong(commands.Cog):
         await interaction.response.send_message("Hello!")
         return """
     
-    @commands.hybrid_command(name="hi",with_app_command=True,guild=discord.Object(id=1048972316924711003))
+    @commands.hybrid_command(name="hi",with_app_command=True,guild=discord.Object(id=1048972316924711003),)
     async def ping_command(self, ctx: commands.Context) -> None:
         await ctx.send(f"Hello! <@{ctx.author.id}> !")
 

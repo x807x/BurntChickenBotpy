@@ -3,6 +3,7 @@ from discord.ext import commands
 from classes.MainClass import Cog_Extension
 import json
 import random, os, asyncio
+from BotMgr.keep_alive import keep_alive
 
 intents = discord.Intents.all()
 
@@ -30,5 +31,11 @@ async def on_ready():
 
 async def main():
     await Cog_load()
-    await bot.start(data['TestToken'])
+    try:
+        keep_alive()
+        await bot.start(data['TestToken'])
+    except:
+        print("Bot Restart")
+        os.system("kill 1")
+        os.system("python ./BotMgr/restarter.py")
 asyncio.run(main())
