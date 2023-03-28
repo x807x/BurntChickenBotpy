@@ -9,8 +9,7 @@ with open('./data/token.json', 'r', encoding= 'utf8') as PrivateFile:
 	data = json.load(PrivateFile)
 with open('./data/setting.json','r',encoding='utf8') as file2:
     SettingData=json.load(file2)
-
-bot = commands.Bot(command_prefix= SettingData['prefix'], owner_ids= data['Owner'],intents=intents)
+bot = commands.Bot(command_prefix= SettingData['prefix'],owner_ids= data['Owner'],intents=intents,strip_after_prefix=False)
 async def Cog_load():
 	for filename in os.listdir('./cmds'):
 		if filename.endswith('.py'):
