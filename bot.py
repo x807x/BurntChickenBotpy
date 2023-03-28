@@ -10,7 +10,6 @@ with open('./data/token.json', 'r', encoding= 'utf8') as PrivateFile:
 with open('./data/setting.json','r',encoding='utf8') as file2:
     SettingData=json.load(file2)
 
-<<<<<<< HEAD
 class BCbot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix= SettingData['prefix'],owner_ids= data['Owner'],intents=intents,strip_after_prefix=False)
@@ -29,26 +28,6 @@ class BCbot(commands.Bot):
         print(f">> {self.user.name} is online <<")
         t=time.localtime(time.time())
         print(f">>現在時間 {datetime.utcnow().replace(tzinfo=timezone.utc).astimezone(timezone(timedelta(hours=8)))}")
-=======
-bot = commands.Bot(command_prefix= SettingData['prefix'], owner_ids= data['Owner'],intents=intents)
-
-@bot.event
-async def on_ready():
-    print(f">> {bot.user.name} is online <<")
-    t=time.localtime(time.time())
-    await bot.tree.sync(guild=discord.Object(id=1020914209795604601))
-    print(f">>現在時間 {datetime.utcnow().replace(tzinfo=timezone.utc).astimezone(timezone(timedelta(hours=8)))}")
-
-async def Cog_load():
-	for filename in os.listdir('./cmds'):
-		if filename.endswith('.py'):
-			print(f"Cog_load{filename[:-3]}")
-			await bot.load_extension(f'cmds.{filename[:-3]}')
-	for filename in os.listdir("./txts"):
-		if(filename.endswith('.py')):
-			print(f"Cog_load{filename[:-3]}")
-			await bot.load_extension(f"txts.{filename[:-3]}")
->>>>>>> 99ce51c3bd4d0c030da5f04dd10ca26a4a9b6cd1
 
 async def main():
     await BCbot().run(data['Token'])
