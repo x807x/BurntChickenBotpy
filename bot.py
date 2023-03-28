@@ -1,7 +1,6 @@
 import discord, json, os, asyncio, time
 from datetime import datetime,timezone,timedelta
 from discord.ext import commands
-from classes.MainClass import Cog_Extension
 from BotMgr.keep_alive import keep_alive
 
 intents = discord.Intents.all()
