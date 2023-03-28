@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 import discord
 from discord.ext import commands
-from bot import BCbot
 import json
 pray = """
 **      **      🛐🛐
@@ -15,7 +14,7 @@ pray = """
             🛐🛐🛐
 """
 class Pong(commands.Cog):
-    def __init__(self,bot:BCbot):
+    def __init__(self,bot):
         self.bot=bot
         super().__init__()
     @commands.Cog.listener()
@@ -49,5 +48,4 @@ class Pong(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Pong(bot),guild=discord.Object(id=1020914209795604601))
-    await bot.tree.sync(guild=discord.Object(id=1020914209795604601))
     print("Main Setup")
