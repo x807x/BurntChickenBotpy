@@ -33,7 +33,7 @@ async def main():
     await Cog_load()
     try:
         keep_alive()
-        await bot.start(data['TestToken'])
+        await bot.start(data['Token'])
     except:
         print("Bot Restart")
         os.system("kill 1")
