@@ -1,8 +1,7 @@
-import discord
+import discord, json, os, asyncio, time
+from datetime import datetime,timezone,timedelta
 from discord.ext import commands
 from classes.MainClass import Cog_Extension
-import json
-import random, os, asyncio
 from BotMgr.keep_alive import keep_alive
 
 intents = discord.Intents.all()
@@ -13,7 +12,6 @@ with open('./data/setting.json','r',encoding='utf8') as file2:
     SettingData=json.load(file2)
 
 bot = commands.Bot(command_prefix= SettingData['prefix'], owner_ids= data['Owner'],intents=intents)
-
 async def Cog_load():
 	for filename in os.listdir('./cmds'):
 		if filename.endswith('.py'):
@@ -27,7 +25,8 @@ async def Cog_load():
 @bot.event
 async def on_ready():
     print(f">> {bot.user.name} is online <<")
-    
+    t=time.localtime(time.time())
+    print(f">>現在時間 {datetime.utcnow().replace(tzinfo=timezone.utc).astimezone(timezone(timedelta(hours=8)))}")
 
 async def main():
     await Cog_load()
