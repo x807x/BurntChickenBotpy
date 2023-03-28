@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 import discord
 from discord.ext import commands
+
 import json
 pray = """
 **      **      🛐🛐
@@ -37,10 +38,19 @@ class Pong(commands.Cog):
     @commands.command(name="worship",pass_context=True)
     async def place_of_worship2(self,ctx):
         print("worship")
+        print(ctx.guild.id)
         await self.place_of_worship.callback
         print("hi")
+    """@commands.HybridCommand(func=  ,name = "commandname", description = "My first application Command", guild=discord.Object(id=1048972316924711003)) #Add the guild ids in which the slash command will appear. If it should be in all, remove the argument, but note that it will take some time (up to an hour) to register the command if it's for all guilds.
+    async def first_command(interaction):
+        await interaction.response.send_message("Hello!")
+        return """
+    
+    @commands.hybrid_command(name="hi",with_app_command=True,guild=discord.Object(id=1048972316924711003))
+    async def ping_command(self, ctx: commands.Context) -> None:
+        await ctx.send(f"Hello! <@{ctx.author.id}> !")
 
 
 async def setup(bot):
-    await bot.add_cog(Pong(bot))
+    await bot.add_cog(Pong(bot),guild=discord.Object(id=1048972316924711003))
     print("Main Setup")
