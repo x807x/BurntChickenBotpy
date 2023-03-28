@@ -33,6 +33,15 @@ class Pong(commands.Cog):
             return
         await ctx.reply(pray)
         return
+    @commands.command(name="🛐",description="You are so Dian")
+    async def TooDian(self,ctx):
+        with open(file="./data/cmd_useable.json",mode="r",encoding="utf-8") as permission_json:
+            permission=json.load(permission_json)
+        if(str(ctx.channel.id) in permission["place_of_worship"]["unable"]):
+            await ctx.reply("You can't use this command in this guild")
+            return
+        await ctx.send(pray)
+        return
     @commands.hybrid_command(name="hi",with_app_command=True,guild=discord.Object(id=1048972316924711003),description="say hello")
     async def ping_command(self, ctx: commands.Context) -> None:
         await ctx.defer()

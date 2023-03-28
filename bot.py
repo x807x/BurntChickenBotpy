@@ -10,12 +10,14 @@ with open('./data/token.json', 'r', encoding= 'utf8') as PrivateFile:
 with open('./data/setting.json','r',encoding='utf8') as file2:
     SettingData=json.load(file2)
 bot = commands.Bot(command_prefix= SettingData['prefix'],owner_ids= data['Owner'],intents=intents,strip_after_prefix=False)
+
 @bot.event
 async def on_ready():
     await bot.tree.sync()
     print(f">> {bot.user.name} is online <<")
     t=time.localtime(time.time())
     print(f">>現在時間 {datetime.utcnow().replace(tzinfo=timezone.utc).astimezone(timezone(timedelta(hours=8)))}")
+
 async def Cog_load():
 	for filename in os.listdir('./cmds'):
 		if filename.endswith('.py'):
