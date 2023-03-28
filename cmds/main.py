@@ -54,5 +54,5 @@ class Pong(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Pong(bot),guild=discord.Object(id=1020914209795604601))
-    await bot.tree.sync(guild=discord.Object(id=1020914209795604601))
+    #await bot.tree.sync(guild=discord.Object(id=1020914209795604601))
     print("Main Setup")
