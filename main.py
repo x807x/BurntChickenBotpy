@@ -7,9 +7,9 @@ intents = discord.Intents.all()
 
 with open('./data/token.json', 'r', encoding= 'utf8') as PrivateFile:
 	data = json.load(PrivateFile)
-with open('./data/setting.json','r',encoding='utf8') as file2:
-    SettingData=json.load(file2)
-bot = commands.Bot(command_prefix= SettingData['prefix'],owner_ids= data['Owner'],intents=intents,strip_after_prefix=False)
+with open('./data/strings.json','r',encoding='utf8') as file2:
+    strings=json.load(file2)
+bot = commands.Bot(command_prefix= strings['prefix'],owner_ids= data['Owner'],intents=intents,strip_after_prefix=False)
 
 @bot.event
 async def on_ready():
@@ -21,11 +21,11 @@ async def on_ready():
 async def Cog_load():
 	for filename in os.listdir('./cmds'):
 		if filename.endswith('.py'):
-			print(f"Cog_load{filename[:-3]}")
+			print(f"Cog_load {filename[:-3]}")
 			await bot.load_extension(f'cmds.{filename[:-3]}')
 	for filename in os.listdir("./txts"):
 		if(filename.endswith('.py')):
-			print(f"Cog_load{filename[:-3]}")
+			print(f"Cog_load {filename[:-3]}")
 			await bot.load_extension(f"txts.{filename[:-3]}")
 
 

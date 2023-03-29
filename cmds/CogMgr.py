@@ -3,6 +3,7 @@ from discord.ext import commands
 from classes.MainClass import Cog_Extension
 import json, asyncio, os
 
+
 class CogMgr(Cog_Extension):
 	@commands.hybrid_command(name="load",description="Load Cog")
 	@commands.is_owner()
@@ -40,4 +41,3 @@ class CogMgr(Cog_Extension):
 
 async def setup(bot):
     await bot.add_cog(CogMgr(bot))
-    print(f"{__name__} Loaded")
