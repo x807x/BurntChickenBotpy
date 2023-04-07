@@ -4,7 +4,7 @@ from discord.ext import commands
 from classes.MainClass import Cog_Extension
 import json
 with open("./data/strings.json","r",encoding="utf-8") as string_data:
-    strings=json.load(string_data)
+    strings=json.load(string_data)  
 
 class MainCommand(Cog_Extension):
     @commands.hybrid_command(name="ping",pass_context=True,discription="Send My Ping")
@@ -20,16 +20,6 @@ class MainCommand(Cog_Extension):
             await ctx.reply("You can't use this command in this guild")
             return
         await ctx.reply(strings["worship"])
-        return
-
-    @commands.command(name="🛐",description="You are so Dian")
-    async def TooDian(self,ctx):
-        with open(file="./data/cmd_useable.json",mode="r",encoding="utf-8") as permission_json:
-            permission=json.load(permission_json)
-        if(str(ctx.channel.id) in permission["place_of_worship"]["unable"]):
-            await ctx.reply("You can't use this command in this guild")
-            return
-        await ctx.send(strings["worship"])
         return
 
     @commands.hybrid_command(name="hi",with_app_command=True,description="say hello")
