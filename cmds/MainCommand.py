@@ -2,7 +2,7 @@
 import discord
 from discord.ext import commands
 from classes.MainClass import Cog_Extension
-import json
+import json, random
 with open("./data/strings.json","r",encoding="utf-8") as string_data:
     strings=json.load(string_data)  
 
@@ -12,14 +12,14 @@ class MainCommand(Cog_Extension):
         await ctx.send(f"bot.latency= {round(self.bot.latency*1000)}ms")
         return
 
-    @commands.hybrid_command(name="膜拜",pass_context=True)
-    async def place_of_worship(self,ctx):
+    @commands.hybrid_command(name="orz",pass_context=True)
+    async def place_of_worship(self,ctx)->None:
         with open(file="./data/cmd_useable.json",mode="r",encoding="utf-8") as permission_json:
             permission=json.load(permission_json)
-        if(str(ctx.channel.id) in permission["place_of_worship"]["unable"]):
+        if(str(ctx.channel.id) in permission["BigEmoji"]["unable"]):
             await ctx.reply("You can't use this command in this guild")
             return
-        await ctx.reply(strings["worship"])
+        await ctx.reply(random.choice([strings["🛐"],strings["⚡"]]))
         return
 
     @commands.hybrid_command(name="hi",with_app_command=True,description="say hello")
