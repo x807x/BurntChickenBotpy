@@ -14,7 +14,6 @@ class CogMgr(Cog_Extension):
 	@commands.hybrid_command(name="unload",description="Unload Cog")
 	@commands.is_owner()
 	async def unload(self, ctx, extension):
-		'''卸載 Cog'''
 		print(f"Unloading cmds.{extension}")
 		await self.bot.unload_extension(f'cmds.{extension}')
 		await ctx.send(f'Un - Loaded {extension} done.')
@@ -22,7 +21,6 @@ class CogMgr(Cog_Extension):
 	@commands.hybrid_command(name="reload",description="Reload Cog")
 	@commands.is_owner()
 	async def reload(self, ctx, extension):
-		'''重新裝載 Cog'''
 		if extension == '*':
 			for filename in os.listdir('./cmds'):
 				if filename.endswith('.py'):
@@ -37,7 +35,9 @@ class CogMgr(Cog_Extension):
 	async def shutdown(self, ctx):
 		await ctx.send("Shutting down...")
 		await asyncio.sleep(1)
-		await self.bot.logout()
+		print("log out")
+		os.system("kill 1")
+		print("logged out")
 
 async def setup(bot):
     await bot.add_cog(CogMgr(bot))
