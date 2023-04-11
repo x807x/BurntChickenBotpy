@@ -25,6 +25,14 @@ def get_ubike(id:int):
         if(r-l==1 and id!=temp):
             break
     if(station!=None):return station
+    with urllib.request.urlopen(url_tc,context=context) as jsondata:
+        data=json.loads(jsondata.read().decode('utf-8'))
+        jsondata.close()
+    for i in data["retVal"]:
+        if(id==int(i["sno"])):
+            station=i
+    if(station!=None): return station
+    return None
     with urllib.request.urlopen(url_ty,context=context) as jsondata:
         data=json.loads(jsondata.read().decode('utf-8'))
         jsondata.close()
@@ -39,16 +47,50 @@ def get_ubike(id:int):
         if(id==int(i["sno"])):
             station=i
     if(station!=None): return station
-    with urllib.request.urlopen(url_tc,context=context) as jsondata:
-        data=json.loads(jsondata.read().decode('utf-8'))
-        jsondata.close()
-    for i in data["retVal"]:
-        if(id==int(i["sno"])):
-            station=i
-    if(station!=None): return station
     
     
     return None
+
+def search_station(content:str):
+    stations=[]
+    with urllib.request.urlopen(url_tp, context=context) as jsondata:
+        data = json.loads(jsondata.read().decode('utf-8')) 
+        jsondata.close()
+    for i in data:
+        temp=i["sna"]
+        if(content in temp):
+            stations.append(i)
+    print("search tpe finish")
+    with urllib.request.urlopen(url_tc, context=context) as jsondata:
+        data = json.loads(jsondata.read().decode('utf-8')) 
+        jsondata.close()
+    data=data["retVal"]
+    for i in data:
+        temp=i["sna"]
+        if(content in temp):
+            stations.append(i)
+    print("search tc finish")
+    return stations
+    with urllib.request.urlopen(url_ty, context=context) as jsondata:
+        data = json.loads(jsondata.read().decode('utf-8')) 
+        jsondata.close()
+    data=data["retVal"]
+    for i in data:
+        temp=data[i]["sna"]
+        if(content in temp):
+            stations.append(data[i])
+    print("search ty finish")
+    with urllib.request.urlopen(url_hc, context=context) as jsondata:
+        data = json.loads(jsondata.read().decode('utf-8')) 
+        jsondata.close()
+    data=data["retVal"]
+    for i in data:
+        temp=i["sna"]
+        if(content in temp):
+            stations.append(i)
+    print("search hc finish")
+    
+    return stations
 
 with open("./data/strings.json","r",encoding="utf-8") as strings_data:
     strings=json.load(strings_data)
@@ -56,16 +98,29 @@ with open("./data/strings.json","r",encoding="utf-8") as strings_data:
 class UBike(Cog_Extension):
     class_name="UBike"
     @commands.hybrid_command(name="ubike",description="get ubike information")
-    async def ubike(self,ctx,station_id:int):
-        station=get_ubike(station_id)
-        if(station==None):
-            await ctx.sent("Can't find this station")
+    async def ubike(self,ctx,id_name):
+        await ctx.defer()
+        if(type(id_name)==type(1)):
+            station=get_ubike(id_name)
+            if(station==None):
+                await ctx.sent("Can't find this station")
+                return 
+            station_name=station["sna"]
+            bike=station["sbi"]
+            empty=int(station["tot"])-int(station["sbi"])
+            await ctx.send(f"{station_name} 剩餘U-Bike {bike}輛 剩餘 {empty}個停車架")
+            return
+        if(type(id_name)==type("string")):
+            stations=search_station(id_name)
+            string=""
+            for station in stations:
+                name=station["sna"]
+                bikes=station["sbi"]
+                empty=int(station["tot"])-int(station["sbi"])
+                string+=f"{name} 剩餘 {bikes}台U-Bikes 剩餘 {empty}個停車架\n"
+            string+=f"共找到{len(stations)} 個站點"
+            await ctx.send(string)
             return 
-        station_name=station["sna"]
-        bike=station["sbi"]
-        empty=int(station["tot"])-int(station["sbi"])
-        await ctx.send(f"{station_name} 剩餘U-Bike {bike}輛 剩餘 {empty}個停車架")
-        return
 
 
 async def setup(bot):
