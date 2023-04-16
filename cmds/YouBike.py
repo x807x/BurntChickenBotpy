@@ -13,6 +13,10 @@ class YouBike(Cog_Extension):
         await ctx.defer()
         await ctx.reply(await find(id_name))
         return 
+    
+    """ @commands.hybrid_command(name="add-common",description="add common used youbike station to your list")
+    async def add_common(ctx,id_name):
+        return """
 
 
 

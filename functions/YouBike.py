@@ -10,7 +10,8 @@ context = ssl._create_unverified_context()
 table="""
 剩餘YouBike
   | 剩餘空車架
-  |   | 站點名稱
+  |   | 版本
+  |   |   | 站點名稱
 """
 
 def its(n:int)->str:
@@ -19,20 +20,22 @@ def its(n:int)->str:
     return s
 
 def ToString(station:dir)->str:
+    version="1.0"
     bikes=int(station["sbi"])
     empty=int(station["tot"])-bikes
     if(station["sna"].startswith("YouBike2.0_")):
         name=station["sna"][11:]
+        version="2.0"
     else: name=station["sna"]
-    return f"{its(bikes)} {its(empty)} {name}"
+    return f"{its(bikes)} {its(empty)} {version} {name}"
 
 def output(data):
     if(data==[]): return "沒找到任何YouBike站"
     if(type(data)==dict):
-        return "```"+table+ToString(data)+"```"
+        return "```cmd"+table+ToString(data)+"```"
     if(type(data)==list):
         print("list data")
-        string="```"+table
+        string="```cmd"+table
         for station in data:
             string+=ToString(station)+"\n"
         string+="```"+f"找到{len(data)}個站點"

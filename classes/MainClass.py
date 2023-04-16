@@ -6,6 +6,7 @@ class Cog_Extension(commands.Cog):
         self.bot = bot
     @commands.Cog.listener()
     async def on_ready(self):
+        self.name=self.__cog_name__
         print(f"{self.__cog_name__} Loaded")
 
 class Logger:
