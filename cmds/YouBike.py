@@ -6,7 +6,6 @@ from functions.YouBike import find
 
 
 class YouBike(Cog_Extension):
-    class_name="YouBike"
     @commands.hybrid_command(name="youbike",description="get youbike information")
     async def youbike(self,ctx,id_name):
         start=perf_counter()
