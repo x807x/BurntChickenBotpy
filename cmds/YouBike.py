@@ -5,7 +5,6 @@ from time import perf_counter
 from classes.YouBikeSearcher import YouBikeSearcher, YouBikeStation
 from classes.City import City
 import asyncio
-import time
 table="""
 剩餘YouBike
   | 剩餘空車架
