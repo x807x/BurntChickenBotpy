@@ -1,0 +1,11 @@
+{
+    "UserId": 1,
+    "Finance": {
+        "Money": 0,
+        "History": []
+    },
+    "Daily": {
+        "LastCheck": 0,
+        "eat": 1234
+    }
+}

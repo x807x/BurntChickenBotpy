@@ -1,9 +1,14 @@
 data/token.json
-test.py
+data/user/*.json
+!data/user/1.json
+.vscode
+
+#other things
 __pycache__/*
 */__pycache__
 __pycache__
 *.pyc
 test.*
 test2.*
-test3.py
+test3.*
+test.py
