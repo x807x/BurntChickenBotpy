@@ -2,7 +2,7 @@ data/token.json
 data/user/*.json
 !data/user/1.json
 .vscode
-
+#.env
 #other things
 __pycache__/*
 */__pycache__

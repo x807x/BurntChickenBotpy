@@ -1,10 +1,8 @@
 import requests
-import json
+import json,os
 
-with open("data/token.json","r") as tokens:
-    data=json.load(tokens)
-    app_id=data["TDXID"]
-    app_key=data["TDXKey"]
+app_id=os.environ["TDXID"]
+app_key=os.environ["TDXKey"]
 auth_url="https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token"
 
 class TDXGetter:
