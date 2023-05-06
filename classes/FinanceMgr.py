@@ -1,14 +1,19 @@
 import json
-def change(path:list,data:dict,new:dict):
+def fix(path:list,data:dict,new:dict):
     print(path,type(path))
-    file=str(path[0])
+    file_name=str(path[0])
     if(len(path)==1):
-        data[file]=new[file]
+        for dir in new:
+            if(dir not in data):
+                data[dir]=new[dir]
+    elif(file_name not in data):
+        data[file_name]=new[file_name]
         return 
-    return change(path[1:],data[file],new[file])
+    elif(file_name not in new):
+        KeyError
+    return fix(path[1:],data[file_name],new[file_name])
 
-
-class Finance:
+class FinanceMgr:
     def __init__(self,UserID:int):
         self.id=UserID
         try:
@@ -16,23 +21,20 @@ class Finance:
         except FileNotFoundError:
             self.file_repair()
         return 
-    
+
     def key_repair(self,path:str):
         path=path.split("/")
         with open(f"./data/user/{self.id}.json","r") as file:
             data=json.load(file)
             file.close()
         new=json.load(open(f"./data/user/1.json","r"))
-        print(type(path))
-        change(path,data,new)
+        fix(path,data,new)
         print(data,type(data))
         with open(f"./data/user/{self.id}.json","w") as file:
             json.dump(data,file)
             file.close()
         return
-        
-        
-        
+
     def file_repair(self):
         with open("./data/user/1.json","r") as file:
             data=json.load(file)
@@ -54,10 +56,15 @@ class Finance:
             return True
         except KeyError:
             if(second): return False
-            if("Finance" not in data):
-                self.key_repair("Finance")
-            if("History" not in data["Finance"]):
-                self.key_repair("Finance/History")
-            if("Mone" not in data["Finance"]):
-                self.key_repair("Finance/Money")
+            self.key_repair("Finance")
             return self.add(nanodollar,reason,second=True)
+
+    def money(self,second=False)->int:
+        with open(f"./data/user/{self.id}.json","r") as file:
+            data=json.load(file)
+            file.close()
+        try: return data["Finance"]["Money"]
+        except KeyError:
+            if(second): return False
+            self.key_repair("Finance/Money")
+            return self.second(second=True)

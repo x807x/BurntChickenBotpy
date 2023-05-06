@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from classes.MainClass import Cog_Extension
-from classes.Finance import Finance
+from classes.FinanceMgr import FinanceMgr
 import json, asyncio, os,datetime
 def get_day():
     a=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=8)))
@@ -34,7 +34,7 @@ class Daily(Cog_Extension):
 		
 		with open(f"./data/user/{ctx.author.id}.json","w") as file:
 			json.dump(data,file)
-		user=Finance(ctx.author.id)
+		user=FinanceMgr(ctx.author.id)
 		user.add(int(1e9+7),"Daily check")
 		print("Finish add")
 		if(words==""): await ctx.reply(f"<@{ctx.author.id}> 已簽到")

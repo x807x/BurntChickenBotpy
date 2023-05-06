@@ -7,7 +7,7 @@ with open("./data/strings.json","r",encoding="utf-8") as string_data:
     strings=json.load(string_data)  
 
 class MainCommand(Cog_Extension):
-    @commands.hybrid_command(name="ping",pass_context=True,discription="Send My Ping")
+    @commands.hybrid_command(name="ping",pass_context=True,description="Send My Ping")
     async def ping(self,ctx):
         await ctx.send(f"bot.latency= {round(self.bot.latency*1000)}ms")
         return
