@@ -7,7 +7,7 @@ intents = discord.Intents.all()
 
 with open('./data/strings.json','r',encoding='utf8') as file2:
     strings=json.load(file2)
-bot = commands.Bot(command_prefix= strings['prefix'],owner_id=os.environ["Owner"],intents=intents,strip_after_prefix=False)
+bot = commands.Bot(command_prefix= strings['prefix'],owner_id=int(os.environ["Owner"]),intents=intents,strip_after_prefix=False)
 
 @bot.event
 async def on_ready():

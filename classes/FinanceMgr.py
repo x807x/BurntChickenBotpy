@@ -1,4 +1,4 @@
-import json
+import json,time
 def fix(path:list,data:dict,new:dict):
     print(path,type(path))
     file_name=str(path[0])
@@ -49,7 +49,7 @@ class FinanceMgr:
                 data=json.load(file)
                 file.close()
             data["Finance"]["Money"]=data["Finance"]["Money"]+nanodollar
-            data["Finance"]["History"].append({"Reason":reason,"Add":nanodollar})
+            data["Finance"]["History"].append({"Reason":reason,"Add":nanodollar,"Time":time.time_ns()})
             with open(f"./data/user/{self.id}.json","w") as file:
                 json.dump(data,file)
                 file.close()
@@ -58,6 +58,22 @@ class FinanceMgr:
             if(second): return False
             self.key_repair("Finance")
             return self.add(nanodollar,reason,second=True)
+
+    def minus(self,nanodollar:int,reason:str,second:bool=False):
+        try:
+            with open(f"./data/user/{self.id}.json","r") as file:
+                data=json.load(file)
+                file.close()
+            data["Finance"]["Money"]=data["Finance"]["Money"]-nanodollar
+            data["Finance"]["History"].append({"Reason":reason,"Minus":nanodollar,"Time":time.time_ns()})
+            with open(f"./data/user/{self.id}.json","w") as file:
+                json.dump(data,file)
+                file.close()
+            return True
+        except KeyError:
+            if(second==True): return False
+            self.key_repair("Finance")
+            return self.minus(nanodollar,reason,True)
 
     def money(self,second=False)->int:
         with open(f"./data/user/{self.id}.json","r") as file:
