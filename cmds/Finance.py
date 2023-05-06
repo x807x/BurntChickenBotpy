@@ -18,9 +18,10 @@ class Finance(Cog_Extension):
         payer=FinanceMgr(ctx.author.id)
         receiver=FinanceMgr(who.id)
         if(nanodollar<=0):
-            ctx.reply(f"<@{ctx.author.id}> <@{ctx.author.id}> <@{ctx.author.id}>\n這樣不好優\t這樣不好優\t這樣不好優\t")
+            await ctx.reply(f"<@{ctx.author.id}>\t<@{ctx.author.id}>\t<@{ctx.author.id}>\n這樣不好優\t這樣不好優\t這樣不好優\t")
+            return 
         if(nanodollar>payer.money()):
-            await ctx.reply(f"<@{who.id} 你沒有足夠的錢")
+            await ctx.reply(f"<@{ctx.author.id}> 你沒有足夠的錢")
             return 
         if payer.minus(nanodollar,f"Give money to {who.id}") and receiver.add(nanodollar,f"{ctx.author.id} give money"):
             await ctx.reply(f"程恭支付 <@{who.id}> {nanodollar} 奈元")
