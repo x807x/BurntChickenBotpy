@@ -35,7 +35,7 @@ class Daily(Cog_Extension):
 		with open(f"./data/user/{ctx.author.id}.json","w") as file:
 			json.dump(data,file)
 		user=FinanceMgr(ctx.author.id)
-		user.add(int(1e9+7),"Daily check")
+		user.add(int(1e9+7)*1000000,"Daily check")
 		print("Finish add")
 		if(words==""): await ctx.reply(f"<@{ctx.author.id}> 已簽到")
 		else: await ctx.reply(f"```\n{words}```||<@{ctx.author.id}> 悄悄留下此訊息||")
