@@ -3,6 +3,8 @@ data/user/*.json
 !data/user/1.json
 .vscode
 .env
+.bashrc
+
 #other things
 __pycache__/*
 */__pycache__
