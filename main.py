@@ -30,9 +30,9 @@ async def Cog_load():
 async def main():
     await Cog_load()
     try:
+        keep_alive()
         await bot.start(os.environ["TestToken"])
     except:
-        await asyncio.sleep(5)
         print("Bot Restart")
         os.system("kill 1")
         os.system("python ./BotMgr/restarter.py")
