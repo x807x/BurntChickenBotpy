@@ -14,17 +14,6 @@ table="""
 searcher=YouBikeSearcher()
 station=YouBikeStation()
 class YouBike(Cog_Extension):
-    @commands.hybrid_command(name="id-youbike",description="get youbike information")
-    async def youbike_id(self,ctx,city:City,id:int):
-        await ctx.defer()
-        await station.find(city.value,id)
-        if(station==None):
-            await ctx.reply("沒找到這個站點")
-            return 
-        print(station.id)
-        await ctx.reply("```py\n"+table+str(station)+"```")
-        return 
-    
     @commands.hybrid_command(name="name-youbike",description="get youbike information")
     async def youbike_name(self,ctx,city:City,name:str):
         await ctx.defer()
