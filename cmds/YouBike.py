@@ -14,7 +14,7 @@ table="""
 searcher=YouBikeSearcher()
 station=YouBikeStation()
 class YouBike(Cog_Extension):
-    @commands.hybrid_command(name="name-youbike",description="get youbike information")
+    @commands.hybrid_command(name="youbike",description="get youbike information")
     async def youbike_name(self,ctx,city:City,name:str):
         await ctx.defer()
         await ctx.reply(await searcher.name_get(city.value,name))
