@@ -1,7 +1,6 @@
 import discord, json, os, asyncio, time
 from datetime import datetime,timezone,timedelta
 from discord.ext import commands
-from BotMgr.keep_alive import keep_alive
 
 intents = discord.Intents.all()
 
@@ -29,5 +28,5 @@ async def Cog_load():
 
 async def main():
     await Cog_load()
-    await bot.start(os.environ["TestToken"])
+    await bot.start(os.environ["Token"])
 asyncio.run(main())
