@@ -57,17 +57,19 @@ class Announcement(Cog_Extension):
     
     @commands.hybrid_command(name="send_announcement",description="Send announcement")
     @commands.is_owner()
-    async def send_announcement(self,ctx,content:str):
+    async def send_announcement(self,ctx,content:str,mention_everyone:bool):
         AS=AnnouncementSend(self.bot)
-        now=time.localtime()
+        print("test")
+        now=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=8)))
+        print("time got")
         content=f"""
-@everyone
 ```
 {content}
 ```
 來自 <@{self.bot.user.id}>
-{now.tm_mon}/{now.tm_mday}/{now.tm_year} {now.tm_hour}:{now.tm_min}:{now.tm_sec}
+{now.strftime("%m/%d/%Y %H:%M:%S")}
         """
+        print("content")
         await AS.send_announcements(content)
         await ctx.reply("成功發送公告")
     
