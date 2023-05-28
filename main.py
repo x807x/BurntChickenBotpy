@@ -20,13 +20,14 @@ async def Cog_load():
 		if filename.endswith('.py'):
 			print(f"Cog_load {filename[:-3]}")
 			await bot.load_extension(f'cmds.{filename[:-3]}')
-	for filename in os.listdir("./txts"):
+	"""for filename in os.listdir("./txts"):
 		if(filename.endswith('.py')):
 			print(f"Cog_load {filename[:-3]}")
 			await bot.load_extension(f"txts.{filename[:-3]}")
+	"""
 
 
 async def main():
     await Cog_load()
-    await bot.start(os.environ["Token"])
+    await bot.start(os.environ["TestToken"])
 asyncio.run(main())

@@ -1,23 +1,17 @@
 import json,time
-def fix(path:list,data:dict,new:dict):
-    print(path,type(path))
-    file_name=str(path[0])
-    if(len(path)==1):
-        for dir in new:
-            if(dir not in data):
-                data[dir]=new[dir]
-    elif(file_name not in data):
-        data[file_name]=new[file_name]
-        return 
-    elif(file_name not in new):
-        KeyError
-    return fix(path[1:],data[file_name],new[file_name])
-
+from functions.Writer import fix
 class FinanceMgr:
     def __init__(self,UserID:int):
         self.id=UserID
+        path=f"./data/user/{self.id}.json"
         try:
-            data=open(f"./data/user/{self.id}.json","r")
+            with open(path,"r") as file:
+                data=json.load(file)
+                file.close()
+            data["UserID"]=self.id
+            with open(path,"w") as file:
+                json.dump(data,file)
+                file.close()
         except FileNotFoundError:
             self.file_repair()
         return 
