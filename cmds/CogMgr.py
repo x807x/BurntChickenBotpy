@@ -10,6 +10,7 @@ class CogMgr(Cog_Extension):
 	async def load(self, ctx, extension):
 		await self.bot.load_extension(f'cmds.{extension}')
 		await ctx.send(f'Loaded {extension} done.')
+		await self.bot.tree.sync()
 
 	@commands.hybrid_command(name="unload",description="Unload Cog")
 	@commands.is_owner()
@@ -17,6 +18,7 @@ class CogMgr(Cog_Extension):
 		print(f"Unloading cmds.{extension}")
 		await self.bot.unload_extension(f'cmds.{extension}')
 		await ctx.send(f'Un - Loaded {extension} done.')
+		await self.bot.tree.sync()
 
 	@commands.hybrid_command(name="reload",description="Reload Cog")
 	@commands.is_owner()
@@ -29,6 +31,7 @@ class CogMgr(Cog_Extension):
 		else:
 			await self.bot.reload_extension(f'cmds.{extension}')
 			await ctx.send(f'Re - Loaded {extension} done.')
+		await self.bot.tree.sync()
 
 	@commands.hybrid_command(name="shutdown",description="Shutdown the bot")
 	@commands.is_owner()

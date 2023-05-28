@@ -22,7 +22,7 @@ class Announcement(Cog_Extension):
     async def set_announcement_channel(self, ctx,channel:discord.TextChannel|discord.Thread=None,delete_old_channel:bool=False,send_message_permission:bool=False):
         if channel is None:
             channel=ctx.channel
-        ctx.defer()
+        await ctx.defer()
         #AnnouncementGuild
         AG=AnnouncementMgr(channel.guild.id)
         if(AG.announcement_channel==channel.id):
@@ -31,7 +31,7 @@ class Announcement(Cog_Extension):
         if(type(channel)!=discord.channel.TextChannel): send_message_permission=True
         if(AG.announcement_channel!=0):
             old=ctx.guild.get_channel_or_thread(AG.announcement_channel)
-            await on_announcement_remove(old,delete_old_channel,AG,self.bot.user.name)
+            if(old!=None): await on_announcement_remove(old,delete_old_channel,AG,self.bot.user.name)
         if AG.mv_announcement(channel.id,send_message_permission):
             await on_announcement_add(channel,send_message_permission,self.bot.user.name)
             await ctx.reply(f"變更成功✅為<#{channel.id}>")
