@@ -97,6 +97,8 @@ class YouBikeStation:
 
 
 class YouBikeSearcher:
+    def __init__(self,limit:int):
+        self.limit=limit
     async def updates(self,city:str,data:list):
         this=YouBikeStation()
         this.station_loads(city,data[0])
@@ -120,16 +122,17 @@ class YouBikeSearcher:
     async def name_get(self,city:str,name:str):
         start=time.time()
         try:
-            url=f"{url_station}{city}?$filter=contains(StationName/Zh_tw,'{name}')&$top=10000&$format=JSON"
+            url=f"{url_station}{city}?$filter=contains(StationName/Zh_tw,'{name}')&$top={self.limit+1}&$format=JSON"
             data=json.loads(DataGetter.get_data(url))
         except:
             print("ERROR")
         if(len(data)==0):
             return "找到不到任何站點"
-        
         data=await self.updates(city,data)
         string="```py"+table
         for station in data:
             string+=f"{station}\n"
-        string+=f"```找到{len(data)}個站點"
+        if(len(data)>self.limit): string+=f"```找到太多站點\n請輸入更詳細的站點名稱"
+        else: string+=f"```找到{len(data)}個站點"
+
         return string

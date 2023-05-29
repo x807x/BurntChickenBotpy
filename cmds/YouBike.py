@@ -11,13 +11,15 @@ table="""
   |   | 版本
   |   | | 站點名稱
 """
-searcher=YouBikeSearcher()
+searcher=YouBikeSearcher(limit=50)
 station=YouBikeStation()
 class YouBike(Cog_Extension):
     @commands.hybrid_command(name="youbike",description="get youbike information")
     async def youbike_name(self,ctx,city:City,name:str):
         await ctx.defer()
-        await ctx.reply(await searcher.name_get(city.value,name))
+        string=await searcher.name_get(city.value,name)
+        if(len(string)>=2000): await ctx.reply("超出discord長度限制")
+        await ctx.reply(string)
         return 
     
     """ @commands.hybrid_command(name="add-common",description="add common used youbike station to your list")
