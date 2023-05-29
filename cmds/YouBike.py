@@ -17,11 +17,11 @@ searcher=YouBikeSearcher(limit=50)
 station=YouBikeStation()
 class YouBike(Cog_Extension):
     @commands.hybrid_command(name="youbike",description="get youbike information")
-    async def youbike_name(self,ctx,city:City,name:str):
-        await ctx.defer()
-        string=await searcher.name_get(city.value,name)+f"\n資料來源https://tdx.transportdata.tw/\n`{Time()}`"
+    async def youbike_name(self,ctx:commands.Context,city:City,name:str):
+        msg=await ctx.reply(f"查詢{city.name} `{name}` 的站點中...")
+        string=f"查詢{city.name} 包含`{name}` 的結果"+await searcher.name_get(city.value,name)+f"\n資料來源https://tdx.transportdata.tw/\n`{Time()}`"
         if(len(string)>=2000): await ctx.reply("超出discord長度限制")
-        await ctx.reply(string)
+        await msg.edit(content=string)
         return 
     
     @commands.hybrid_command(name="youbike_source")
