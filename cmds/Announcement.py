@@ -59,9 +59,8 @@ class Announcement(Cog_Extension):
     @commands.is_owner()
     async def send_announcement(self,ctx,content:str,mention_everyone:bool):
         AS=AnnouncementSend(self.bot)
-        print("test")
         now=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=8)))
-        print("time got")
+        ctx.defer()
         content=f"""
 ```
 {content}
@@ -69,9 +68,11 @@ class Announcement(Cog_Extension):
 來自 <@{self.bot.user.id}>
 {now.strftime("%m/%d/%Y %H:%M:%S")}
         """
-        print("content")
-        await AS.send_announcements(content)
-        await ctx.reply("成功發送公告")
+        try:
+            await AS.send_announcements(content)
+            await ctx.reply("成功發送公告")
+        except:
+            await ctx.reply("公告發送失敗")
     
 
         
