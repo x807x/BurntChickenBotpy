@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from classes.MainClass import Cog_Extension
 from classes.AnnouncementMgr import *
+from classes.Time import Time
 import json, asyncio, os,datetime, threading
 
 async def on_announcement_remove(channel:discord.TextChannel|discord.Thread,delete_old_channel:bool,AG:AnnouncementMgr,bot_name:str):
@@ -60,13 +61,13 @@ class Announcement(Cog_Extension):
     async def send_announcement(self,ctx,content:str,mention_everyone:bool):
         AS=AnnouncementSend(self.bot)
         now=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=8)))
-        ctx.defer()
+        await ctx.defer()
         content=f"""
 ```
 {content}
 ```
 來自 <@{self.bot.user.id}>
-{now.strftime("%m/%d/%Y %H:%M:%S")}
+`{Time()}`
         """
         try:
             await AS.send_announcements(content)
