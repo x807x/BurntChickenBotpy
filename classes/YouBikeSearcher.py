@@ -127,7 +127,7 @@ class YouBikeSearcher:
         except:
             print("ERROR")
         if(len(data)==0):
-            return "找到不到任何相符站點"
+            return "```找不到任何相符站點```"
         data=await self.updates(city,data)
         string="```py"+table
         for station in data:

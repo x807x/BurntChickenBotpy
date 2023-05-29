@@ -19,7 +19,7 @@ class YouBike(Cog_Extension):
     @commands.hybrid_command(name="youbike",description="get youbike information")
     async def youbike_name(self,ctx:commands.Context,city:City,name:str):
         msg=await ctx.reply(f"查詢{city.name} `{name}` 的站點中...")
-        string=f"查詢{city.name} 包含`{name}` 的結果"+await searcher.name_get(city.value,name)+f"\n資料來源https://tdx.transportdata.tw/\n`{Time()}`"
+        string=f"查詢{city.name} 包含`{name}` 的結果\n"+await searcher.name_get(city.value,name)+f"\n資料來源https://tdx.transportdata.tw/\n`{Time()}`"
         if(len(string)>=2000): await ctx.reply("超出discord長度限制")
         await msg.edit(content=string)
         return 
