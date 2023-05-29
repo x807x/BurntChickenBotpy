@@ -1,28 +1,22 @@
-# -*- coding:utf-8 -*-
 import discord
 from discord.ext import commands
 from classes.MainClass import Cog_Extension
+import datetime
 import json, random
 with open("./data/strings.json","r",encoding="utf-8") as string_data:
     strings=json.load(string_data)  
 
-class MainCommand(Cog_Extension):
-    @commands.hybrid_command(name="orz",pass_context=True)
-    async def place_of_worship(self,ctx)->None:
-        with open(file="./data/cmd_useable.json",mode="r",encoding="utf-8") as permission_json:
-            permission=json.load(permission_json)
-        if(str(ctx.channel.id) in permission["BigEmoji"]["unable"]):
-            await ctx.reply("You can't use this command in this guild")
-            return
-        await ctx.reply(random.choice([strings["🛐"],strings["⚡"]]))
+class BotInfo(Cog_Extension):
+    @commands.hybrid_command(name="ping",pass_context=True,description="Send My Ping")
+    async def ping(self,ctx:commands.Context):
+        print(datetime.datetime.now()-ctx.message.created_at())
+        await ctx.send(f"bot.latency= {round(self.bot.latency*1000)}ms")
         return
 
-    @commands.hybrid_command(name="hi",description="say hello")
-    async def hi(self, ctx, mention:discord.User|discord.Role=None):
-        string="Hello! "
-        if(mention==None): string+=f" {ctx.author.mention}"
-        else: string+=f" {mention.mention} "
-        await ctx.reply(string)
+    @commands.hybrid_command(name="github",description=f"My GitHub Link")
+    async def github_link(self,ctx):
+        await ctx.reply(strings["GithubLink"])
+        return 
 
     """ @commands.hybrid_command("help",pass_context=True,discription=strings["bot_name"]+" 使用指南")
     async def help(self,ctx):
@@ -43,4 +37,4 @@ class MainCommand(Cog_Extension):
         return"""
 
 async def setup(bot):
-    await bot.add_cog(MainCommand(bot))
+    await bot.add_cog(BotInfo(bot))
