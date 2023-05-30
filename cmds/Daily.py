@@ -10,7 +10,7 @@ def get_day():
 
 class Daily(Cog_Extension):
 	@commands.hybrid_command(name="daily",description="Daily check")
-	async def daily(self, ctx,words:str=""):
+	async def daily(self, ctx,content:str=""):
 		try :
 			data=open(f"./data/user/{ctx.author.id}.json","r")
 			data=json.load(data)
@@ -37,8 +37,8 @@ class Daily(Cog_Extension):
 		user=FinanceMgr(ctx.author.id)
 		user.add(int(1e9+7)*1000000,"Daily check")
 		print("Finish add")
-		if(words==""): await ctx.reply(f"<@{ctx.author.id}> 已簽到")
-		else: await ctx.reply(f"```\n{words}```||<@{ctx.author.id}> 悄悄留下此訊息||")
+		if(content==""): await ctx.reply(f"<@{ctx.author.id}> 已簽到")
+		else: await ctx.reply(f"```\n{content}```||<@{ctx.author.id}> 悄悄留下此訊息||")
 		return 
 
 async def setup(bot):

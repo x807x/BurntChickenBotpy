@@ -40,7 +40,7 @@ class Announcement(Cog_Extension):
             await ctx.reply("變更失敗")
     
     @commands.hybrid_command(name="new_announcement_channel",description="create a new announcement channel")
-    async def create_announcement_channel(self,ctx:commands.context.Context,name:str,delete_old_channel:bool=False,send_message_permission:bool=False):
+    async def create_announcement_channel(self,ctx:commands.Context,name:str,delete_old_channel:bool=False,send_message_permission:bool=False):
         channel=await ctx.guild.create_text_channel(name)
         if(name==None): name=f"{self.bot.user.name}的公告頻道"
         await ctx.defer()
@@ -58,7 +58,7 @@ class Announcement(Cog_Extension):
     
     @commands.hybrid_command(name="send_announcement",description="Send announcement")
     @commands.is_owner()
-    async def send_announcement(self,ctx,content:str,mention_everyone:bool):
+    async def send_announcement(self,ctx,content:str):
         AS=AnnouncementSend(self.bot)
         now=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=8)))
         await ctx.defer()

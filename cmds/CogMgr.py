@@ -7,14 +7,14 @@ import json, asyncio, os
 class CogMgr(Cog_Extension):
 	@commands.hybrid_command(name="load",description="Load Cog")
 	@commands.is_owner()
-	async def load(self, ctx, extension):
+	async def load(self, ctx, extension:str):
 		await self.bot.load_extension(f'cmds.{extension}')
 		await ctx.send(f'Loaded {extension} done.')
 		await self.bot.tree.sync()
 
 	@commands.hybrid_command(name="unload",description="Unload Cog")
 	@commands.is_owner()
-	async def unload(self, ctx, extension):
+	async def unload(self, ctx, extension:str):
 		print(f"Unloading cmds.{extension}")
 		await self.bot.unload_extension(f'cmds.{extension}')
 		await ctx.send(f'Un - Loaded {extension} done.')
@@ -22,7 +22,7 @@ class CogMgr(Cog_Extension):
 
 	@commands.hybrid_command(name="reload",description="Reload Cog")
 	@commands.is_owner()
-	async def reload(self, ctx, extension):
+	async def reload(self, ctx, extension:str):
 		if extension == '*':
 			for filename in os.listdir('./cmds'):
 				if filename.endswith('.py'):

@@ -29,5 +29,5 @@ async def Cog_load():
 
 async def main():
     await Cog_load()
-    await bot.start(os.environ["TestToken"])
+    await bot.start(os.environ["Token"])
 asyncio.run(main())

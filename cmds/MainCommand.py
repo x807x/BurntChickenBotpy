@@ -23,6 +23,7 @@ class MainCommand(Cog_Extension):
         if(mention==None): string+=f" {ctx.author.mention}"
         else: string+=f" {mention.mention} "
         await ctx.reply(string)
+        return 
 
     """ @commands.hybrid_command("help",pass_context=True,discription=strings["bot_name"]+" 使用指南")
     async def help(self,ctx):
