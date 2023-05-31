@@ -18,11 +18,11 @@ class BotInfo(Cog_Extension):
     async def ping(self,ctx:commands.Context):
         now=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=0)))
         a=ctx.message.created_at
-        delta=a-now
+        delta=now-a
         msg=await ctx.send(f"```py\nbot_latency  = {output(self.bot.latency)}\nreceive_ping = {output(delta.total_seconds())}```")
         now=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=0)))
         b=msg.created_at
-        delta=b-now
+        delta=now-b
         await msg.edit(content=msg.content[:-3]+f"\nsend_ping    = {output(delta.total_seconds())}```")
         return
 
