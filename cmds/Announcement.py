@@ -63,9 +63,9 @@ class Announcement(Cog_Extension):
         now=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=8)))
         await ctx.defer()
         content=f"""
-```
 {content}
-```
+
+
 來自 <@{self.bot.user.id}>
 `{Time()}`
         """
