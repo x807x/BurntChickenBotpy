@@ -6,11 +6,24 @@ import json, random
 with open("./data/strings.json","r",encoding="utf-8") as string_data:
     strings=json.load(string_data)  
 
+def output(time:float)->str:
+    time=int(time*1000)
+    if(time>=1000): return f"{time} ms"
+    if(time>=100): return f" {time} ms"
+    if(time>=10): return f"  {time} ms"
+    if(time>=0): return f"   {time} ms"
+    return "ERROR"
 class BotInfo(Cog_Extension):
     @commands.hybrid_command(name="ping",pass_context=True,description="Send My Ping")
     async def ping(self,ctx:commands.Context):
-        print(datetime.datetime.now()-ctx.message.created_at())
-        await ctx.send(f"bot.latency= {round(self.bot.latency*1000)}ms")
+        now=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=0)))
+        a=ctx.message.created_at
+        delta=a-now
+        msg=await ctx.send(f"```py\nbot_latency  = {output(self.bot.latency)}\nreceive_ping = {output(delta.total_seconds())}```")
+        now=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=0)))
+        b=msg.created_at
+        delta=b-now
+        await msg.edit(content=msg.content[:-3]+f"\nsend_ping    = {output(delta.total_seconds())}```")
         return
 
     @commands.hybrid_command(name="github",description=f"My GitHub Link")
@@ -18,7 +31,7 @@ class BotInfo(Cog_Extension):
         await ctx.reply(strings["GithubLink"])
         return 
 
-    """ @commands.hybrid_command("help",pass_context=True,discription=strings["bot_name"]+" 使用指南")
+    """ @commands.hybrid_command("help",pass_context=True,description=strings["bot_name"]+" 使用指南")
     async def help(self,ctx):
         help_string="Commands\n"
         ctx.context
