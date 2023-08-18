@@ -5,6 +5,7 @@ data/guild/*.json
 !data/guild/1.json
 .vscode
 .env
+.bashrc
 
 #other things
 __pycache__/*
