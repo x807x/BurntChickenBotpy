@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app_id=os.getenv("TDXID")
-app_key=os.getenv("TDXKey")+"asdf"
+app_key=os.getenv("TDXKey")
 auth_url="https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token"
 
 class TDXGetter:
