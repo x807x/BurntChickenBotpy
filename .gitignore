@@ -4,6 +4,7 @@ data/user/*.json
 data/guild/*.json
 !data/guild/1.json
 .vscode
+.vscode/*
 .env
 .bashrc
 

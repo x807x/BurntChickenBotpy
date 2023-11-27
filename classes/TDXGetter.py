@@ -1,8 +1,10 @@
 import requests
 import json,os
+from dotenv import load_dotenv
+load_dotenv()
 
-app_id=os.environ["TDXID"]
-app_key=os.environ["TDXKey"]
+app_id=os.getenv("TDXID")
+app_key=os.getenv("TDXKey")+"asdf"
 auth_url="https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token"
 
 class TDXGetter:
@@ -29,6 +31,8 @@ class TDXGetter:
 
         def get_data_header(self):
             auth_JSON = json.loads(self.auth_response.text)
+            if "error" in auth_JSON:
+                print(auth_JSON)
             access_token = auth_JSON.get('access_token')
             return{'authorization': 'Bearer '+access_token}
 

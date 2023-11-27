@@ -1,12 +1,14 @@
 import discord, json, os, asyncio, time
 from datetime import datetime,timezone,timedelta
 from discord.ext import commands
+from dotenv import load_dotenv
+load_dotenv()
 
 intents = discord.Intents.all()
 
 with open('./data/strings.json','r',encoding='utf8') as file2:
     strings=json.load(file2)
-bot = commands.Bot(command_prefix= strings['prefix'],owner_id=int(os.environ["Owner"]),intents=intents,strip_after_prefix=False)
+bot = commands.Bot(command_prefix= strings['prefix'],owner_id=int(os.getenv("Owner")),intents=intents,strip_after_prefix=False)
 
 @bot.event
 async def on_ready():
@@ -29,5 +31,5 @@ async def Cog_load():
 
 async def main():
     await Cog_load()
-    await bot.start(os.environ["Token"])
+    await bot.start(os.getenv("Token"))
 asyncio.run(main())
