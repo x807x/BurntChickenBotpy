@@ -21,7 +21,10 @@ Discord Bot
 
     * if you use other linux, run these in your terminal
     
+    **You must use Python3.10**
     ```bash
+    sudo apt update && sudo apt upgrade
+    sudo apt install python310
     pip3 install discord.py dotenv requests
     ```
 

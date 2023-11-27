@@ -23,7 +23,6 @@ class Daily(Cog_Extension):
 				json.dump(data,file)
 		try:
 			day=data["Daily"]["LastCheck"]
-			print(day,data["Daily"]["LastCheck"])
 			if(day==get_day()):
 				await ctx.reply(f"<@{ctx.author.id}> 已經遷到過了")
 				return 
@@ -36,7 +35,7 @@ class Daily(Cog_Extension):
 			json.dump(data,file)
 		user=FinanceMgr(ctx.author.id)
 		user.add(int(1e9+7)*1000000,"Daily check")
-		print("Finish add")
+		print(f"{ctx.author.name}: daily")
 		if(content==""): await ctx.reply(f"<@{ctx.author.id}> 已簽到")
 		else: await ctx.reply(f"```\n{content}```||<@{ctx.author.id}> 悄悄留下此訊息||")
 		return 
