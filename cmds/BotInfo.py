@@ -3,8 +3,8 @@ from discord.ext import commands
 from classes.MainClass import Cog_Extension
 import datetime
 import json, random
-with open("./data/strings.json","r",encoding="utf-8") as string_data:
-    strings=json.load(string_data)  
+with open("./data/config.json","r",encoding="utf-8") as config_file:
+    config=json.load(config_file)
 
 def output(time:float)->str:
     time=int(time*1000)
@@ -28,10 +28,10 @@ class BotInfo(Cog_Extension):
 
     @commands.hybrid_command(name="github",description=f"My GitHub Link")
     async def github_link(self,ctx):
-        await ctx.reply(strings["GithubLink"])
+        await ctx.reply(config["GithubLink"])
         return 
 
-    """ @commands.hybrid_command("help",pass_context=True,description=strings["bot_name"]+" 使用指南")
+    """ @commands.hybrid_command("help",pass_context=True,description=config["bot_name"]+" 使用指南")
     async def help(self,ctx):
         help_string="Commands\n"
         ctx.context

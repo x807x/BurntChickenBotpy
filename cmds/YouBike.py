@@ -11,8 +11,9 @@ table="""
   |   | 版本
   |   | | 站點名稱
 """
-with open("./data/strings.json","r",encoding="utf-8") as string_data:
-    strings=json.load(string_data)
+with open("./data/config.json","r",encoding="utf-8") as config_file:
+    config=json.load(config_file)
+
 searcher=YouBikeSearcher(limit=50)
 station=YouBikeStation()
 class YouBike(Cog_Extension):
@@ -28,7 +29,7 @@ class YouBike(Cog_Extension):
     async def youbike_source(self,ctx:commands.Context):
         with open("./data/pictures/tdxlogo.png","rb") as pic:
             picture=discord.File(pic)
-            await ctx.reply(file=picture,content=f"資料來源:{strings['TDXLink']}")
+            await ctx.reply(file=picture,content=f"資料來源:{config['TDXLink']}")
     """ @commands.hybrid_command(name="add-common",description="add common used youbike station to your list")
     async def add_common(ctx,id_name):
         return """
